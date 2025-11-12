@@ -1,79 +1,75 @@
-body {
-    background-color: rgb(69, 104, 180);
-    display: flex;
-    justify-content: center;
+const form = document.getElementById("form");
+const username = document.getElementById("user");
+const email = document.getElementById("email");
+const senha = document.getElementById("senha");
+const csenha = document.getElementById("csenha");
 
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    checkInputUsername();
+    checkInputEmail();
+    checkInputSenha();
+    checkInputCsenha();
+})
+
+function checkInputUsername(){
+    const usernameValue = username.value;
+
+    if(usernameValue === ""){
+        errorInput(username, "Coloque o nome de usuário")
+    } else {
+        const formItem = username.parentElement;
+        formItem.className = "caixa"
+    }
 }
 
-.tudo {
-    height: 550px;
-    width: 350px;
-    background-color: white;
-    margin-top: 10%;
-    border-radius: 10px;
-    display: wrap;
-    justify-content: left;
-    box-shadow: rgba(68, 51, 81, 0.212) 10px 10px 10px;
+
+function checkInputEmail(){
+    const emailValue = email.value;
+
+    if(emailValue === ""){
+        errorInput(email, "O email é obrigatório")
+    } else {
+        const formItem = email.parentElement;
+        formItem.className = "caixa"
+    }
 }
 
-.titulo {
-    padding: 3%;
-    height: 7%;
-    width: 100%;
-    font-size: 25px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: gray;
+function checkInputSenha(){
+    const senhaValue = senha.value;
+
+    if(senhaValue === ""){
+        errorInput(senha, "Coloque sua senha")
+    } else if(senhaValue.length != 1) {
+        errorInput(senha, "A senha deve ter 1 caractere")
+    } else {
+        const formItem = senha.parentElement;
+        formItem.className = "caixa"
+    }
 }
 
-.caixas {
-    display: wrap;
-    width: 100%;
-    height: 87%;
+
+function checkInputCsenha(){
+    const csenhaValue = csenha.value;
+    const senhaValue = senha.value;
+
+    if(csenhaValue === ""){
+        errorInput(csenha, "Confirme sua senha")
+    } else if(csenhaValue !== senhaValue) {
+        errorInput(csenha, "As senhas não batem")
+    } else {
+        const formItem = csenha.parentElement;
+        formItem.className = "caixa"
+    }
 }
 
-.caixa {
-    width: 95%;
-    height: 15%;
-    margin-left: 5%;
-    margin-bottom: 5%;
-}
 
-label {
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(75, 75, 75);
-    font-size: 19px;
-}
+function errorInput(input, message){
+    const formItem = input.parentElement;
+    const textMessage = formItem.querySelector("a")
 
-input {
-    height: 40%;
-    width: 80%;
-    border-radius: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-}
+    textMessage.innerText = message;
 
-button {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    border-radius: 10px;
-    height: 40%;
-    width: 60%;
-    background-color: rgb(196, 83, 83);
-    border: 0;
-}
-
-.caixa a{
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(75, 75, 75);
-    font-size: 17px;
-    visibility: hidden;
-}
-
-.caixa.error input{
-    border-color: red;
-}
-
-.caixa.error a{
-    color: red;
-    visibility: visible;
+    formItem.className = "caixa error"
 }
